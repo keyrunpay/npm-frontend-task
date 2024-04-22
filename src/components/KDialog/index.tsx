@@ -17,11 +17,13 @@ export const useDialog = () => {
 const KDialog = forwardRef<HTMLDialogElement, IProps>((props, ref) => {
   const { children, onClose } = props;
   return (
-    <dialog ref={ref}>
-      {children}
-      <button autoFocus onClick={onClose}>
-        Close Modal
-      </button>
+    <dialog onClose={onClose} onClick={onClose} ref={ref}>
+      <div onClick={(e) => e.stopPropagation()}>
+        {children}
+        <button autoFocus onClick={onClose}>
+          Close Modal
+        </button>
+      </div>
     </dialog>
   );
 });
