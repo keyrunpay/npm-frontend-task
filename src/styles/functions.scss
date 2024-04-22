@@ -1,0 +1,37 @@
+@use "sass:math";
+
+@function rem($value) {
+  @return calc(
+    #{math.div(math.div($value, $value * 0 + 1), 16)}rem * #{$scaling}
+  );
+}
+
+@mixin light {
+  [data-color-scheme="light"] & {
+    @content;
+  }
+}
+
+@mixin dark {
+  [data-color-scheme="dark"] & {
+    @content;
+  }
+}
+
+@mixin hover {
+  &:not([disabled]):hover {
+    @content;
+  }
+}
+
+@mixin focus {
+  &:focus {
+    @content;
+  }
+}
+
+@mixin mobile {
+  @media (max-width: $breakpoint-sm) {
+    @content;
+  }
+}
