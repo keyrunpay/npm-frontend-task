@@ -4,8 +4,10 @@ import "./style.scss";
 
 interface IProps {
   children: React.ReactNode;
-  size?: string;
   onClose: () => void;
+  size?: string;
+  preventCloseOnEscape?: boolean;
+  preventCloseOnBackdrop?: boolean;
 }
 
 export const useDialog = () => {
@@ -20,7 +22,16 @@ const KDialog = forwardRef<HTMLDialogElement, IProps>((props, ref) => {
   const _style = { "--size": size } as React.CSSProperties;
 
   return (
-    <dialog style={_style} onClick={onClose} ref={ref}>
+    <dialog
+      onCancel={(event) => {
+        if (props.preventCloseOnEscape) event.preventDefault();
+      }}
+      style={_style}
+      onClick={() => {
+        if (!props.preventCloseOnBackdrop) onClose();
+      }}
+      ref={ref}
+    >
       <div className="dialog-wrapper" onClick={(e) => e.stopPropagation()}>
         {children}
       </div>

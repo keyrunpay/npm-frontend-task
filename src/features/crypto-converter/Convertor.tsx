@@ -1,4 +1,4 @@
-import { fractionFormatter } from "@/utils/general.utils";
+import { fractionFormatter } from "@/utils/general";
 import React, { ChangeEvent, useState } from "react";
 
 interface IProps {

@@ -8,6 +8,12 @@ export const [metaMask, hooks] = initializeConnector<MetaMask>(
   (actions) => new MetaMask({ actions })
 );
 
+export const shortenAddress = (address: string) => {
+  return `${address.substring(0, 4)} ... ${address.substring(
+    address.length - 4
+  )}`;
+};
+
 export function useBalances(
   provider?: ReturnType<Web3ReactHooks["useProvider"]>,
   account?: string

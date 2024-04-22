@@ -4,7 +4,6 @@ import KLogo from "@/components/KLogo";
 import Convertor from "./Convertor";
 import "./style.scss";
 import WalletDetails from "./WalletDetails";
-import { KSpinner } from "@/components/KSpinner";
 
 export default function CryptoConvertor() {
   const { ref, onOpen, onClose } = useDialog();

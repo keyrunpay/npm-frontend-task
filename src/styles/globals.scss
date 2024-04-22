@@ -91,9 +91,29 @@ button.primary {
   background: $color-link;
 }
 
+button.danger {
+  @extend .button-common;
+  color: #fff;
+  background: $color-error;
+}
+
 button.secondary {
   @extend .button-common;
   background: $color-dim;
   color: #000;
+  font-weight: 400;
+}
+
+.text-sm {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.text-dim {
+  color: #8a8a8a;
+}
+
+.text-md {
+  font-size: 14px;
   font-weight: 400;
 }

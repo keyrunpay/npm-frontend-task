@@ -5,18 +5,18 @@
 
 .crypto-convertor-box {
   background: #fff;
-  padding: 58px;
   border-radius: 4px;
+  padding: rem(58);
   margin: 0 auto;
-  width: 460px;
+  width: rem(460);
   max-width: 90vw;
 
   @include mobile {
-    padding: 24px;
+    padding: rem(24);
   }
 
   .actions {
-    margin-top: 24px;
+    margin-top: rem(24);
   }
 }
 
@@ -33,4 +33,19 @@
     border-radius: 4px;
     width: 100%;
   }
+}
+
+.wallet-details {
+  margin-top: rem(24);
+
+  .actions {
+    margin-top: rem(24);
+  }
+}
+
+.wallet-detail-item {
+  display: flex;
+  justify-content: space-between;
+  padding: rem(8) rem(12);
+  border-bottom: 1px solid $color-dim;
 }
