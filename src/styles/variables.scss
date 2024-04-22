@@ -1,6 +1,11 @@
 $breakpoint-xs: 576px; // '36rem'
-$breakpoint-sm: 768px; //'48rem'
-$breakpoint-md: 992px; //'62rem'
-$breakpoint-lg: 1200px; //'75rem'
+$breakpoint-sm: 768px; // '48rem'
+$breakpoint-md: 992px; // '62rem'
+$breakpoint-lg: 1200px; // '75rem'
 $breakpoint-xl: 1408px; // '88rem'
 $scaling: 1;
+
+$color-outline: rgba(34, 138, 230, 0.4);
+$color-link: #3380c0;
+$color-dim: #ecf0f4;
+$color-error: red;

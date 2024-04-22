@@ -1,22 +1,23 @@
 dialog {
-  max-width: 32em;
-  border-radius: 0.2em;
   border: none;
   padding: 0;
+  width: var(--size, fit-content);
+  border-radius: 4px;
+  max-width: 97vw;
 }
-dialog,
-::backdrop {
-  overscroll-behavior: contain;
-}
+
 dialog::backdrop {
   background: rgba(0, 0, 0, 0.8);
 }
+
 dialog > div {
-  padding: 1em;
+  padding: rem(16);
 }
+
 dialog[open] {
-  animation: zoom 0.2s ease-out;
+  animation: zoom 0.15s ease-out;
 }
+
 @keyframes zoom {
   from {
     transform: scale(0.9);
@@ -25,8 +26,9 @@ dialog[open] {
     transform: scale(1);
   }
 }
+
 dialog[open]::backdrop {
-  animation: fade 0.2s ease-out;
+  animation: fade 0.1s ease-out;
 }
 @keyframes fade {
   from {
@@ -36,6 +38,23 @@ dialog[open]::backdrop {
     opacity: 1;
   }
 }
-button {
-  display: block;
+
+.dialog-header {
+  display: flex;
+  justify-content: space-between;
+
+  h4 {
+    font-size: rem(16);
+    font-weight: 600;
+  }
+
+  img {
+    width: rem(20);
+  }
+}
+
+.dialog-actions {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+  grid-gap: rem(16);
 }

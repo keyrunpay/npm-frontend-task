@@ -1,0 +1,36 @@
+.logo-wrapper {
+  margin-top: rem(94);
+  margin-bottom: rem(24);
+}
+
+.crypto-convertor-box {
+  background: #fff;
+  padding: 58px;
+  border-radius: 4px;
+  margin: 0 auto;
+  width: 460px;
+  max-width: 90vw;
+
+  @include mobile {
+    padding: 24px;
+  }
+
+  .actions {
+    margin-top: 24px;
+  }
+}
+
+.input-item {
+  label {
+    display: block;
+    margin-bottom: 2px;
+    font-size: 14px;
+  }
+
+  input {
+    padding: rem(8) rem(16);
+    border: 1px solid $color-dim;
+    border-radius: 4px;
+    width: 100%;
+  }
+}

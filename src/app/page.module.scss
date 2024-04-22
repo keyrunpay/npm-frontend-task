@@ -1,8 +1,0 @@
-.title {
-  padding: $breakpoint-xs / 3;
-  font-size: 24px;
-
-  @include mobile {
-    font-size: rem(28);
-  }
-}
