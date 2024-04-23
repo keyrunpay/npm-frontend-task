@@ -49,7 +49,11 @@ export default function WalletDetails({ onClose }: any) {
 
   return (
     <>
-      <KDialogHeader title="Wallet Details" onClose={onClose} />
+      <KDialogHeader
+        aria={{ close: "Close Wallet Details" }}
+        title="Wallet Details"
+        onClose={onClose}
+      />
       {walletState == "idle" && (
         <>
           <p className="text-error">
@@ -59,13 +63,14 @@ export default function WalletDetails({ onClose }: any) {
 
           <KDialogActions>
             <button
+              aria-label="Connect Wallet"
               autoFocus
               onClick={handleMetamaskConnect}
               className="primary"
             >
               {isActivating ? <KSpinner type="white" /> : "Connect"}
             </button>
-            <button onClick={onClose} className="secondary">
+            <button aria-label="Cancel" onClick={onClose} className="secondary">
               Cancel
             </button>
           </KDialogActions>
@@ -80,6 +85,7 @@ export default function WalletDetails({ onClose }: any) {
 
           <KDialogActions>
             <a
+              aria-label="Install Metamask"
               className="d-block"
               target="_blank"
               rel="noopener noreferrer"
@@ -89,7 +95,7 @@ export default function WalletDetails({ onClose }: any) {
                 Install
               </button>
             </a>
-            <button onClick={onClose} className="secondary">
+            <button aria-label="Cancel" onClick={onClose} className="secondary">
               Cancel
             </button>
           </KDialogActions>
@@ -126,10 +132,18 @@ export default function WalletDetails({ onClose }: any) {
 
           <div className="actions">
             <KDialogActions>
-              <button onClick={handleMetamaskDisconnect} className="danger">
+              <button
+                aria-label="Disconnect Wallet"
+                onClick={handleMetamaskDisconnect}
+                className="danger"
+              >
                 Disconnect
               </button>
-              <button onClick={onClose} className="secondary">
+              <button
+                aria-label="Cancel"
+                onClick={onClose}
+                className="secondary"
+              >
                 Cancel
               </button>
             </KDialogActions>

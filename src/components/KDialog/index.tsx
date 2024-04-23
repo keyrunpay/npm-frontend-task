@@ -42,13 +42,20 @@ const KDialog = forwardRef<HTMLDialogElement, IProps>((props, ref) => {
 interface IHeaderProps {
   title: string;
   onClose: () => void;
+  aria?: {
+    close?: string;
+  };
 }
 
 export const KDialogHeader = (props: IHeaderProps) => {
   return (
     <div className="dialog-header">
       <h4>{props.title}</h4>
-      <button className="unstyled" onClick={props.onClose}>
+      <button
+        aria-label={props?.aria?.close}
+        className="unstyled"
+        onClick={props.onClose}
+      >
         <img src="/svg/close.svg" alt="" />
       </button>
     </div>

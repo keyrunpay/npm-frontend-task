@@ -66,7 +66,11 @@ export default function Convertor({ onWalletDetailsClicked }: IProps) {
       </div>
 
       <div className="flex-center actions">
-        <button onClick={onWalletDetailsClicked} className="link">
+        <button
+          aria-label="Check Wallet Details"
+          onClick={onWalletDetailsClicked}
+          className="link"
+        >
           Check Wallet Details
         </button>
       </div>
