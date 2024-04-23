@@ -1,7 +1,7 @@
 import { KDialogActions, KDialogHeader } from "@/components/KDialog";
 import { shortenAddress, useBalances } from "@/utils/metamask";
 import { useWeb3React } from "@web3-react/core";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { formatEther } from "@ethersproject/units";
 import { KSpinner } from "@/components/KSpinner";
 import { fractionFormatter } from "@/utils/general";
@@ -10,28 +10,41 @@ const allowedChains = [97];
 
 export default function WalletDetails({ onClose }: any) {
   const [walletState, setWalletState] = useState<string>("idle");
+  const [error, setError] = useState<string>("");
   const { account, chainId, connector, isActive, isActivating, provider } =
     useWeb3React();
 
   const balance = useBalances(provider, account);
 
-  const handleMetamaskConnect = () => {
-    connector.activate(allowedChains);
-  };
+  const handleMetamaskConnect = useCallback(async () => {
+    try {
+      await connector.activate(...allowedChains);
+    } catch (error: any) {
+      setWalletState("idle");
+      setError(error?.message);
+      localStorage.removeItem("connected");
+    }
+  }, []);
 
-  const handleMetamaskDisconnect = () => {
-    if (isActive) connector.resetState();
-  };
-
-  useEffect(() => {
-    if (!window.ethereum) setWalletState("no-wallet");
-    else if (isActive) setWalletState("connected");
-    else setWalletState("idle");
+  const handleMetamaskDisconnect = useCallback(() => {
+    if (isActive) {
+      connector.resetState();
+      localStorage.removeItem("connected");
+    }
   }, [isActive]);
 
   useEffect(() => {
-    // @ts-ignore
-    if (!!window.ethereum) connector.connectEagerly([97]);
+    if (!window.ethereum) setWalletState("no-wallet");
+    else if (isActive) {
+      setWalletState("connected");
+      localStorage.setItem("connected", "Y");
+    } else setWalletState("idle");
+  }, [isActive]);
+
+  useEffect(() => {
+    if (!!window.ethereum && localStorage.getItem("connected") == "Y") {
+      handleMetamaskConnect();
+    }
   }, []);
 
   return (
@@ -40,7 +53,8 @@ export default function WalletDetails({ onClose }: any) {
       {walletState == "idle" && (
         <>
           <p className="text-error">
-            Wallet not connected. Please click the "Connect Now" button below
+            {error ||
+              `Wallet not connected. Please click the "Connect Now" button below`}
           </p>
 
           <KDialogActions>
@@ -49,7 +63,7 @@ export default function WalletDetails({ onClose }: any) {
               onClick={handleMetamaskConnect}
               className="primary"
             >
-              {isActivating ? <KSpinner /> : "Connect"}
+              {isActivating ? <KSpinner type="white" /> : "Connect"}
             </button>
             <button onClick={onClose} className="secondary">
               Cancel
@@ -102,9 +116,11 @@ export default function WalletDetails({ onClose }: any) {
           <div className="wallet-detail-item">
             <p className="text-md">Balance</p>
             <p className="text-md">
-              {balance
-                ? `Ξ ${fractionFormatter(parseFloat(formatEther(balance)))}`
-                : "-"}
+              {balance ? (
+                `Ξ ${fractionFormatter(parseFloat(formatEther(balance)))}`
+              ) : (
+                <KSpinner type="dark" />
+              )}
             </p>
           </div>
 

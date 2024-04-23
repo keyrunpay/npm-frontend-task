@@ -15,6 +15,23 @@
     padding: rem(24);
   }
 
+  .title {
+    margin-bottom: rem(16);
+    font-size: rem(24);
+
+    @include mobile {
+      font-size: rem(18);
+    }
+  }
+
+  .exchange-icon {
+    margin: rem(12) 0;
+
+    img {
+      width: rem(24);
+    }
+  }
+
   .actions {
     margin-top: rem(24);
   }
@@ -24,7 +41,7 @@
   label {
     display: block;
     margin-bottom: 2px;
-    font-size: 14px;
+    font-size: rem(14);
   }
 
   input {

@@ -1,31 +1,43 @@
 import { fractionFormatter } from "@/utils/general";
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useCallback, useState } from "react";
 
 interface IProps {
   onWalletDetailsClicked: () => void;
 }
 
+let numberRegex = /(\d+\.?\d*|\.\d+)$/;
+
 export default function Convertor({ onWalletDetailsClicked }: IProps) {
   const [nepAmount, setNepAmount] = useState<string>("");
   const [busdAmount, setBusdAmount] = useState<string>("");
 
-  const handleNepChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleNepChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     const _val = e.target.value || "";
+    if (!_val) {
+      setNepAmount("");
+      setBusdAmount("");
+    }
+    if (!numberRegex.test(_val)) return;
     const _busdVal = _val ? parseFloat(_val) * 3 : 0;
     setNepAmount(_val);
     setBusdAmount(fractionFormatter(_busdVal));
-  };
+  }, []);
 
-  const handleBusdChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleBusdChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     const _val = e.target.value || "";
+    if (!_val) {
+      setNepAmount("");
+      setBusdAmount("");
+    }
+    if (!numberRegex.test(_val)) return;
     const _nepVal = _val ? parseFloat(_val) / 3 : 0;
     setBusdAmount(_val);
     setNepAmount(fractionFormatter(_nepVal));
-  };
+  }, []);
 
   return (
     <section className="crypto-convertor-box">
-      <h1 style={{ marginBottom: 16 }}>Crypto Converter</h1>
+      <h1 className="title">Crypto Converter</h1>
 
       <div className="input-item">
         <label htmlFor="nep-currency">NEP</label>
@@ -34,18 +46,12 @@ export default function Convertor({ onWalletDetailsClicked }: IProps) {
           value={nepAmount}
           onChange={handleNepChange}
           placeholder="0.00"
-          type="number"
+          inputMode="numeric"
         />
       </div>
 
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          margin: "12px 0",
-        }}
-      >
-        <img style={{ width: 24 }} src="/svg/exchange.svg" alt="" />
+      <div className="flex-center exchange-icon">
+        <img src="/svg/exchange.svg" alt="" />
       </div>
 
       <div className="input-item">
@@ -55,7 +61,7 @@ export default function Convertor({ onWalletDetailsClicked }: IProps) {
           onChange={handleBusdChange}
           value={busdAmount}
           placeholder="0.00"
-          type="number"
+          inputMode="numeric"
         />
       </div>
 

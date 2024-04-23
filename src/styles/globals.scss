@@ -12,6 +12,8 @@ body {
   margin: 0;
   overflow-x: hidden;
   background-color: #191b29;
+  /* fix for scrollbar, position */
+  padding-left: calc(100vw - 100%);
 }
 
 /* lock scroll, when dialog is opened */
