@@ -5,7 +5,7 @@ interface IProps {
   onWalletDetailsClicked: () => void;
 }
 
-let numberRegex = /(\d+\.?\d*|\.\d+)$/;
+let numberRegex = /^[0-9]*[\.]*?[0-9]{0,2}$/;
 
 export default function Convertor({ onWalletDetailsClicked }: IProps) {
   const [nepAmount, setNepAmount] = useState<string>("");
